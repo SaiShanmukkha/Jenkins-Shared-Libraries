@@ -1,0 +1,39 @@
+sendNotification
+================
+
+Sends a build status notification to Slack or via email.
+
+Requires the Slack Notification plugin (for Slack) or the Email Extension
+plugin (for email) to be installed in Jenkins.
+
+Parameters
+----------
+type          (optional) - Notification type: 'slack' or 'email'. Defaults to 'slack'.
+
+For type='slack':
+  channel       (optional) - Slack channel name. Defaults to '#general'.
+  credentialsId (optional) - Jenkins credentials ID for the Slack token.
+                             Defaults to 'slack-token'.
+
+For type='email':
+  recipients    (required) - Comma-separated list of email addresses.
+
+Example Usage
+-------------
+
+    @Library('jenkins-shared-libraries') _
+
+    pipeline {
+        agent any
+        post {
+            always {
+                sendNotification(channel: '#ci-builds')
+            }
+            failure {
+                sendNotification(
+                    type: 'email',
+                    recipients: 'team@example.com'
+                )
+            }
+        }
+    }

@@ -1,0 +1,19 @@
+{
+  "version": "1.0.0",
+  "description": "Jenkins Shared Library default configuration",
+  "defaults": {
+    "maven": {
+      "goals": "clean install",
+      "mavenHome": "Maven"
+    },
+    "docker": {
+      "imageTag": "latest",
+      "dockerfile": "Dockerfile",
+      "push": false
+    },
+    "notification": {
+      "type": "slack",
+      "channel": "#general"
+    }
+  }
+}

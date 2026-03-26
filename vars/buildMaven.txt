@@ -1,0 +1,33 @@
+buildMaven
+==========
+
+Runs a Maven build inside the current workspace.
+
+Requires the Pipeline Maven Integration plugin to be installed in Jenkins.
+
+Parameters
+----------
+goals     (optional) - Maven goals and options. Defaults to 'clean install'.
+mavenOpts (optional) - JVM options passed via MAVEN_OPTS. Defaults to empty.
+mavenHome (optional) - Name of the Maven installation configured in Jenkins
+                       Global Tool Configuration. Defaults to 'Maven'.
+
+Example Usage
+-------------
+
+    @Library('jenkins-shared-libraries') _
+
+    pipeline {
+        agent any
+        stages {
+            stage('Build') {
+                steps {
+                    buildMaven(
+                        goals: 'clean package -DskipTests',
+                        mavenOpts: '-Xmx1024m',
+                        mavenHome: 'Maven-3.9'
+                    )
+                }
+            }
+        }
+    }
