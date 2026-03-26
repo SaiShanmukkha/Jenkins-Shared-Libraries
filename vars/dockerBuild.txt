@@ -1,0 +1,39 @@
+dockerBuild
+===========
+
+Builds a Docker image and optionally pushes it to a container registry.
+
+Requires the Docker Pipeline plugin to be installed in Jenkins.
+
+Parameters
+----------
+imageName     (required) - Name of the Docker image (without tag).
+imageTag      (optional) - Image tag. Defaults to 'latest'.
+dockerfile    (optional) - Path to the Dockerfile. Defaults to 'Dockerfile'.
+registry      (optional) - Container registry hostname (e.g. 'docker.io/myorg').
+                           Defaults to empty (uses local Docker daemon).
+credentialsId (optional) - Jenkins credentials ID for the registry login.
+push          (optional) - Whether to push the image after building.
+                           Defaults to false.
+
+Example Usage
+-------------
+
+    @Library('jenkins-shared-libraries') _
+
+    pipeline {
+        agent any
+        stages {
+            stage('Docker Build & Push') {
+                steps {
+                    dockerBuild(
+                        imageName: 'myapp',
+                        imageTag: "${env.BUILD_NUMBER}",
+                        registry: 'docker.io/myorg',
+                        credentialsId: 'docker-hub-credentials',
+                        push: true
+                    )
+                }
+            }
+        }
+    }

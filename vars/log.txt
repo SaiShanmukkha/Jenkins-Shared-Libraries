@@ -1,0 +1,30 @@
+log
+===
+
+Provides simple logging utilities for Jenkins pipelines.
+
+Methods
+-------
+log.info(String message)  - Logs an informational message with [INFO] prefix.
+log.warn(String message)  - Logs a warning message with [WARN] prefix.
+log.error(String message) - Logs an error message with [ERROR] prefix.
+
+Example Usage
+-------------
+
+    @Library('jenkins-shared-libraries') _
+
+    pipeline {
+        agent any
+        stages {
+            stage('Example') {
+                steps {
+                    script {
+                        log.info('Build started')
+                        log.warn('Something looks suspicious')
+                        log.error('Something went wrong')
+                    }
+                }
+            }
+        }
+    }

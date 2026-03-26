@@ -1,0 +1,30 @@
+gitCheckout
+===========
+
+Checks out a Git repository into the current workspace.
+
+Parameters
+----------
+url           (required) - The Git repository URL.
+branch        (optional) - Branch to check out. Defaults to 'main'.
+credentialsId (optional) - Jenkins credentials ID for private repositories.
+
+Example Usage
+-------------
+
+    @Library('jenkins-shared-libraries') _
+
+    pipeline {
+        agent any
+        stages {
+            stage('Checkout') {
+                steps {
+                    gitCheckout(
+                        url: 'https://github.com/org/repo.git',
+                        branch: 'main',
+                        credentialsId: 'my-git-credentials'
+                    )
+                }
+            }
+        }
+    }
